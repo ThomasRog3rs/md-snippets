@@ -98,7 +98,7 @@ async function loadSnippets() {
 
 // Render category filter buttons
 function renderCategoryFilters(categories) {
-    // Add "All" button if not already present
+    // Add "All" button if not already present, or add event listener if it exists
     const allBtn = document.querySelector('[data-category="all"]');
     if (!allBtn) {
         const btn = document.createElement('button');
@@ -109,6 +109,9 @@ function renderCategoryFilters(categories) {
         btn.textContent = 'All';
         btn.addEventListener('click', () => setCategory('all'));
         categoryFilters.appendChild(btn);
+    } else {
+        // If "All" button already exists in HTML, add the event listener
+        allBtn.addEventListener('click', () => setCategory('all'));
     }
     
     // Add category buttons
