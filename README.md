@@ -2,6 +2,8 @@
 
 A beautiful, modern static website for easily copying markdown syntax snippets. Features a dark mode design, search functionality, category organization, and live previews of rendered markdown.
 
+![Markdown Snippets Screenshot](md-snippets.png)
+
 ## Features
 
 - 🎨 **Beautiful Dark Mode** - Modern, easy-on-the-eyes dark theme
