@@ -1,5 +1,7 @@
 # Markdown Snippets
 
+> **Disclaimer:** This project was vibe coded and I did not write any of the code myself.
+
 A beautiful, modern static website for easily copying markdown syntax snippets. Features a dark mode design, search functionality, category organization, and live previews of rendered markdown.
 
 ![Markdown Snippets Screenshot](md-snippets.png)
