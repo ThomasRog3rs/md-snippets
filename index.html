@@ -5,63 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Easily copy markdown snippets for tables, code blocks, links, lists, and more">
     <title>Markdown Snippets - Copy & Paste Markdown</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        'github-dark': {
-                            'bg': '#010409',
-                            'surface': '#0d1117',
-                            'elevated': '#161b22',
-                            'hover': '#21262d',
-                            'border': '#30363d',
-                            'text': '#e6edf3',
-                            'text-muted': '#8b949e',
-                            'text-faint': '#6e7681',
-                            'accent': '#1f6feb',
-                            'accent-hover': '#388bfd',
-                            'success': '#238636',
-                            'success-hover': '#2ea043',
-                            'danger': '#da3633',
+                        'lux': {
+                            'bg': '#0A0A0A',
+                            'surface': '#111111',
+                            'elevated': '#1A1A1A',
+                            'elevated-hover': '#1F1F1F',
+                            'border': '#2A2A2A',
+                            'border-subtle': '#1F1F1F',
+                            'text': '#F5F5F0',
+                            'text-secondary': '#E8E6E1',
+                            'text-muted': '#B4B4B4',
+                            'text-faint': '#8A8A8A',
+                            'accent': '#D4AF37',
+                            'accent-hover': '#C9A961',
+                            'accent-muted': '#9B8333',
+                            'success': '#4CAF50',
+                            'success-hover': '#66BB6A',
+                            'danger': '#EF5350',
                         }
-                    }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
                 }
             }
         }
+        }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-[#010409] text-[#e6edf3] min-h-screen">
-    <header class="border-b border-[#21262d] bg-[#0d1117] sticky top-0 z-10 backdrop-blur-sm bg-opacity-95">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <h1 class="text-4xl font-semibold text-[#f0f6fc] mb-2">Markdown Snippets</h1>
-            <p class="text-[#8b949e] text-lg">Copy & paste markdown syntax snippets</p>
+<body class="bg-[#0A0A0A] text-[#F5F5F0] min-h-screen font-sans antialiased">
+    <header class="border-b border-[#1F1F1F] bg-[#111111]/80 sticky top-0 z-10 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-baseline gap-3">
+                <h1 class="text-xl font-semibold text-[#F5F5F0] tracking-tight">Markdown Snippets</h1>
+                <span class="text-sm text-[#8A8A8A] font-light hidden sm:inline">Copy & paste markdown syntax</span>
+            </div>
         </div>
     </header>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="mb-8 space-y-6">
-            <div class="relative">
+        <div class="mb-10 space-y-5">
+            <div class="relative search-container">
                 <input 
                     type="text" 
                     id="searchInput" 
-                    class="w-full pl-12 pr-4 py-3 bg-[#0d1117] border border-[#30363d] rounded-lg text-[#e6edf3] placeholder-[#6e7681] focus:outline-none focus:ring-2 focus:ring-[#1f6feb] focus:border-[#1f6feb] transition-all"
+                    class="w-full pl-12 pr-32 py-4 bg-[#111111] border border-[#2A2A2A] rounded-xl text-[#F5F5F0] placeholder-[#8A8A8A] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] transition-all duration-300 text-base"
                     placeholder="Search snippets..."
                     aria-label="Search snippets"
                 >
-                <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#6e7681]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#8A8A8A]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
                     <path d="m21 21-4.35-4.35"></path>
                 </svg>
+                <kbd class="absolute right-4 top-1/2 transform -translate-y-1/2 hidden sm:flex items-center gap-1 px-2 py-1 bg-[#1A1A1A] border border-[#2A2A2A] rounded text-xs text-[#8A8A8A] font-mono">
+                    <span class="text-sm">⌘</span>K
+                </kbd>
             </div>
             
-            <div class="flex flex-wrap gap-2" id="categoryFilters" role="tablist" aria-label="Category filters">
-                <button class="category-btn px-4 py-2 rounded-md text-sm font-medium transition-all bg-[#1f6feb] text-white border border-[#1f6feb]" data-category="all" role="tab" aria-selected="true">
-                    All
-                </button>
+            <div class="flex items-center gap-3">
+                <span class="text-sm text-[#B4B4B4] font-medium">Filter:</span>
+                <div class="flex flex-wrap gap-2" id="categoryFilters" role="tablist" aria-label="Category filters">
+                    <button class="category-btn active" data-category="all" role="tab" aria-selected="true">
+                        All
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -70,18 +89,23 @@
         </div>
 
         <div class="hidden flex-col items-center justify-center py-20 text-center" id="emptyState">
-            <svg class="w-16 h-16 text-[#6e7681] mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg class="w-16 h-16 text-[#8A8A8A] mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
             </svg>
-            <p class="text-xl text-[#e6edf3] mb-2">No snippets found</p>
-            <p class="text-[#8b949e]">Try adjusting your search or filter</p>
+            <p class="text-xl text-[#E8E6E1] mb-2 font-medium">No snippets found</p>
+            <p class="text-[#B4B4B4]">Try adjusting your search or filter</p>
         </div>
     </div>
 
     <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3" id="toastContainer" aria-live="polite"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked-highlight@2.1.0/lib/index.umd.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

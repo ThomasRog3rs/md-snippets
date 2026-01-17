@@ -301,7 +301,7 @@
         {
           "title": "Inline Math",
           "description": "Math formula inline with text",
-          "markdown": "E = mc$^2$",
+          "markdown": "The famous equation is $E = mc^2$",
           "priority": "medium"
         },
         {
@@ -311,9 +311,15 @@
           "priority": "medium"
         },
         {
-          "title": "LaTeX Math",
+          "title": "LaTeX Math (Quadratic Formula)",
           "description": "Common LaTeX math syntax",
-          "markdown": "$$\n\\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}\n$$",
+          "markdown": "$$\nx = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}\n$$",
+          "priority": "low"
+        },
+        {
+          "title": "Fraction and Greek Letters",
+          "description": "Mathematical expressions with symbols",
+          "markdown": "$$\n\\alpha + \\beta = \\frac{\\pi}{2}\n$$",
           "priority": "low"
         }
       ]

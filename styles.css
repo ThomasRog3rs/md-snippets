@@ -1,17 +1,38 @@
 /* Custom styles for markdown preview and animations */
 @layer utilities {
     .category-btn {
-        @apply px-4 py-2 rounded-md text-sm font-medium transition-all bg-[#161b22] text-[#8b949e] border border-[#30363d] hover:bg-[#21262d] hover:text-[#e6edf3] hover:border-[#30363d];
+        @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300;
+        background-color: transparent;
+        color: #B4B4B4;
+        border: 1px solid #2A2A2A;
+    }
+    
+    .category-btn:hover {
+        background-color: #1A1A1A;
+        color: #E8E6E1;
+        border-color: #D4AF37;
+        transform: translateY(-1px);
     }
     
     .category-btn.active {
-        @apply bg-[#1f6feb] text-white border-[#1f6feb] hover:bg-[#388bfd] hover:border-[#388bfd];
+        background-color: transparent;
+        color: #D4AF37;
+        border-color: #D4AF37;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+        font-weight: 600;
+    }
+    
+    .category-btn.active:hover {
+        background-color: rgba(212, 175, 55, 0.1);
+        color: #C9A961;
+        border-color: #C9A961;
     }
 }
 
 /* Markdown preview styling */
 .preview-content {
-    @apply text-[#e6edf3] leading-relaxed;
+    color: #E8E6E1;
+    line-height: 1.625;
 }
 
 .preview-content h1,
@@ -20,84 +41,227 @@
 .preview-content h4,
 .preview-content h5,
 .preview-content h6 {
-    @apply text-[#f0f6fc] font-semibold mt-6 mb-3;
+    color: #F5F5F0;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .preview-content h1 {
-    @apply text-3xl border-b border-[#30363d] pb-3;
+    font-size: 1.875rem;
+    border-bottom: 1px solid #2A2A2A;
+    padding-bottom: 0.75rem;
 }
 
 .preview-content h2 {
-    @apply text-2xl border-b border-[#30363d] pb-2;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #2A2A2A;
+    padding-bottom: 0.5rem;
 }
 
 .preview-content h3 {
-    @apply text-xl;
+    font-size: 1.25rem;
 }
 
 .preview-content h4 {
-    @apply text-lg;
+    font-size: 1.125rem;
 }
 
 .preview-content p {
-    @apply mb-4;
+    margin-bottom: 1rem;
 }
 
 .preview-content code {
-    @apply bg-[#161b22] px-1.5 py-0.5 rounded text-[#79c0ff] text-sm font-mono;
+    background-color: #1A1A1A;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    color: #D4AF37;
+    font-size: 0.875rem;
+    font-family: monospace;
 }
 
 .preview-content pre {
-    @apply bg-[#161b22] border border-[#30363d] rounded-lg p-4 overflow-x-auto mb-4;
+    background-color: #1A1A1A;
+    border: 1px solid #2A2A2A;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
 }
 
 .preview-content pre code {
-    @apply bg-transparent p-0 text-[#e6edf3];
+    background-color: transparent;
+    padding: 0;
+    color: #E8E6E1;
 }
 
 .preview-content blockquote {
-    @apply border-l-4 border-[#1f6feb] pl-4 ml-0 text-[#8b949e] italic my-4;
+    border-left: 4px solid #D4AF37;
+    padding-left: 1rem;
+    margin-left: 0;
+    color: #B4B4B4;
+    font-style: italic;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .preview-content table {
-    @apply border-collapse w-full mb-4;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 .preview-content table th,
 .preview-content table td {
-    @apply border border-[#30363d] px-3 py-2 text-left;
+    border: 1px solid #2A2A2A;
+    padding: 0.75rem;
+    text-align: left;
 }
 
 .preview-content table th {
-    @apply bg-[#161b22] font-semibold;
+    background-color: #1A1A1A;
+    font-weight: 600;
 }
 
 .preview-content ul,
 .preview-content ol {
-    @apply ml-6 mb-4;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .preview-content li {
-    @apply mb-1;
+    margin-bottom: 0.25rem;
 }
 
 .preview-content a {
-    @apply text-[#58a6ff] no-underline hover:underline;
+    color: #D4AF37;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.preview-content a:hover {
+    text-decoration: underline;
 }
 
 .preview-content img {
-    @apply max-w-full h-auto rounded-lg;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
 }
 
 .preview-content hr {
-    @apply border-0 border-t border-[#30363d] my-6;
+    border: 0;
+    border-top: 1px solid #2A2A2A;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .preview-content del {
-    @apply line-through text-[#6e7681];
+    text-decoration: line-through;
+    color: #8A8A8A;
 }
 
-/* Toast animation */
+/* Task lists (checkboxes) */
+.preview-content input[type="checkbox"] {
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.preview-content ul {
+    list-style-type: disc;
+}
+
+.preview-content ul li {
+    position: relative;
+}
+
+/* Task list items */
+.preview-content li input[type="checkbox"] {
+    position: relative;
+    top: 2px;
+}
+
+/* Highlighted text */
+.preview-content mark {
+    background-color: rgba(250, 204, 21, 0.3);
+    color: #F5F5F0;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
+/* Code syntax highlighting integration */
+.preview-content pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0;
+    background: transparent;
+}
+
+/* KaTeX math formulas */
+.preview-content .katex {
+    font-size: 1.05em;
+}
+
+.preview-content .katex-display {
+    margin: 1rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Definition lists */
+.preview-content dl {
+    margin-bottom: 1rem;
+}
+
+.preview-content dt {
+    font-weight: 600;
+    color: #F5F5F0;
+    margin-top: 1rem;
+}
+
+.preview-content dd {
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+    color: #B4B4B4;
+}
+
+/* Footnotes */
+.preview-content .footnote-ref {
+    vertical-align: super;
+    font-size: 0.75em;
+    color: #D4AF37;
+}
+
+.preview-content .footnotes {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #2A2A2A;
+    font-size: 0.875rem;
+}
+
+/* Ensure code blocks inside pre have proper styling */
+.preview-content pre > code {
+    display: block;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+/* Better spacing for nested lists */
+.preview-content ul ul,
+.preview-content ol ul,
+.preview-content ul ol,
+.preview-content ol ol {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Fix for checklist styling */
+.preview-content li:has(input[type="checkbox"]) {
+    list-style-type: none;
+    margin-left: -1.5rem;
+}
+
+/* Animations */
 @keyframes slideIn {
     from {
         transform: translateX(100%);
@@ -109,8 +273,32 @@
     }
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.25);
+    }
+}
+
 .toast {
-    animation: slideIn 0.3s ease;
+    animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-container input:focus {
+    animation: glow 2s ease-in-out infinite;
 }
 
 /* Custom scrollbar */
@@ -120,14 +308,36 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #010409;
+    background: #0A0A0A;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #21262d;
+    background: #2A2A2A;
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #30363d;
+    background: #3A3A3A;
 }
+
+/* Smooth transitions */
+* {
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button, a {
+    transition-duration: 0.2s;
+}
+
+/* Card fade-in on load */
+article {
+    animation: fadeIn 0.5s ease-out backwards;
+}
+
+article:nth-child(1) { animation-delay: 0.05s; }
+article:nth-child(2) { animation-delay: 0.1s; }
+article:nth-child(3) { animation-delay: 0.15s; }
+article:nth-child(4) { animation-delay: 0.2s; }
+article:nth-child(5) { animation-delay: 0.25s; }
+article:nth-child(6) { animation-delay: 0.3s; }

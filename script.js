@@ -13,9 +13,52 @@ const toastContainer = document.getElementById('toastContainer');
 
 // Initialize marked for markdown rendering
 if (typeof marked !== 'undefined') {
+    // Configure marked with extensions
+    const renderer = new marked.Renderer();
+    
+    // Custom renderer for text highlighting (==text==)
+    marked.use({
+        extensions: [{
+            name: 'highlight',
+            level: 'inline',
+            start(src) { return src.match(/==/)?.index; },
+            tokenizer(src) {
+                const rule = /^==([^=]+)==/;
+                const match = rule.exec(src);
+                if (match) {
+                    return {
+                        type: 'highlight',
+                        raw: match[0],
+                        text: match[1]
+                    };
+                }
+            },
+            renderer(token) {
+                return `<mark class="bg-yellow-400/30 text-[#F5F5F0] px-1 rounded">${token.text}</mark>`;
+            }
+        }]
+    });
+    
+    // Configure marked with syntax highlighting
+    if (typeof markedHighlight !== 'undefined' && typeof hljs !== 'undefined') {
+        marked.use(markedHighlight.markedHighlight({
+            highlight: (code, lang) => {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(code, { language: lang }).value;
+                    } catch (err) {
+                        console.error('Highlight error:', err);
+                    }
+                }
+                return hljs.highlightAuto(code).value;
+            }
+        }));
+    }
+    
     marked.setOptions({
         breaks: true,
         gfm: true,
+        renderer: renderer
     });
 }
 
@@ -135,7 +178,7 @@ function renderSnippets() {
 // Create a snippet card element
 function createSnippetCard(snippet) {
     const card = document.createElement('article');
-    card.className = 'bg-[#161b22] border border-[#30363d] rounded-xl p-6 hover:border-[#1f6feb] transition-all duration-200 hover:shadow-lg hover:shadow-[#1f6feb]/10 flex flex-col gap-4';
+    card.className = 'bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-6 hover:border-[#D4AF37] transition-all duration-500 hover:shadow-xl hover:shadow-[#D4AF37]/10 hover:scale-[1.02] flex flex-col gap-5';
     
     // Header with title, description, badge, and copy button
     const header = document.createElement('div');
@@ -145,11 +188,11 @@ function createSnippetCard(snippet) {
     titleGroup.className = 'flex-1';
     
     const title = document.createElement('h3');
-    title.className = 'text-lg font-semibold text-[#f0f6fc] mb-1';
+    title.className = 'text-lg font-semibold text-[#F5F5F0] mb-2 tracking-tight';
     title.textContent = snippet.title;
     
     const description = document.createElement('p');
-    description.className = 'text-sm text-[#8b949e] leading-relaxed';
+    description.className = 'text-sm text-[#B4B4B4] leading-relaxed';
     description.textContent = snippet.description;
     
     titleGroup.appendChild(title);
@@ -159,11 +202,11 @@ function createSnippetCard(snippet) {
     headerRight.className = 'flex items-center gap-2 flex-shrink-0';
     
     const badge = document.createElement('span');
-    badge.className = 'px-2.5 py-1 rounded-md text-xs font-medium bg-[#21262d] text-[#8b949e] border border-[#30363d]';
+    badge.className = 'px-3 py-1.5 rounded-lg text-xs font-medium bg-[#111111] text-[#B4B4B4] border border-[#1F1F1F]';
     badge.textContent = snippet.categoryName;
     
     const copyBtn = document.createElement('button');
-    copyBtn.className = 'copy-btn px-3 py-1.5 rounded-md text-sm font-medium bg-[#21262d] text-[#8b949e] border border-[#30363d] hover:bg-[#30363d] hover:text-[#e6edf3] hover:border-[#1f6feb] transition-all flex items-center gap-1.5';
+    copyBtn.className = 'copy-btn px-4 py-2 rounded-lg text-sm font-medium bg-[#111111] text-[#B4B4B4] border border-[#2A2A2A] hover:bg-[#D4AF37] hover:text-[#111111] hover:border-[#D4AF37] transition-all duration-300 flex items-center gap-2 hover:shadow-lg hover:shadow-[#D4AF37]/20';
     copyBtn.setAttribute('aria-label', 'Copy to clipboard');
     copyBtn.innerHTML = `
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -186,20 +229,20 @@ function createSnippetCard(snippet) {
     
     // Code block
     const codeWrapper = document.createElement('div');
-    codeWrapper.className = 'relative bg-[#010409] border border-[#30363d] rounded-lg p-4 overflow-x-auto';
+    codeWrapper.className = 'relative bg-[#111111] border border-[#2A2A2A] rounded-xl p-5 overflow-x-auto';
     
     const codeBlock = document.createElement('pre');
-    codeBlock.className = 'text-sm font-mono text-[#e6edf3] whitespace-pre m-0';
+    codeBlock.className = 'text-sm font-mono text-[#E8E6E1] whitespace-pre m-0 leading-relaxed';
     codeBlock.textContent = snippet.markdown;
     
     codeWrapper.appendChild(codeBlock);
     
     // Preview container (always visible)
     const previewContainer = document.createElement('div');
-    previewContainer.className = 'bg-[#010409] border border-[#30363d] rounded-lg p-4';
+    previewContainer.className = 'bg-[#111111] border border-[#2A2A2A] rounded-xl p-5';
     
     const previewLabel = document.createElement('div');
-    previewLabel.className = 'text-xs font-medium text-[#6e7681] mb-3 uppercase tracking-wide';
+    previewLabel.className = 'text-xs font-medium text-[#8A8A8A] mb-3 uppercase tracking-wider';
     previewLabel.textContent = 'Preview';
     
     const previewContent = document.createElement('div');
@@ -207,7 +250,40 @@ function createSnippetCard(snippet) {
     
     // Render markdown preview
     if (typeof marked !== 'undefined') {
-        previewContent.innerHTML = marked.parse(snippet.markdown);
+        let html = marked.parse(snippet.markdown);
+        
+        // Render math formulas with KaTeX if available
+        if (typeof katex !== 'undefined') {
+            // Block math: $$...$$
+            html = html.replace(/\$\$([\s\S]+?)\$\$/g, (match, tex) => {
+                try {
+                    return katex.renderToString(tex.trim(), {
+                        displayMode: true,
+                        throwOnError: false,
+                        output: 'html'
+                    });
+                } catch (err) {
+                    console.error('KaTeX error:', err);
+                    return match;
+                }
+            });
+            
+            // Inline math: $...$
+            html = html.replace(/\$([^\$\n]+?)\$/g, (match, tex) => {
+                try {
+                    return katex.renderToString(tex.trim(), {
+                        displayMode: false,
+                        throwOnError: false,
+                        output: 'html'
+                    });
+                } catch (err) {
+                    console.error('KaTeX error:', err);
+                    return match;
+                }
+            });
+        }
+        
+        previewContent.innerHTML = html;
     } else {
         previewContent.textContent = 'Markdown preview unavailable';
     }
@@ -264,7 +340,9 @@ function showCopyFeedback(button) {
     const originalText = copyText ? copyText.textContent : 'Copy';
     const originalHTML = button.innerHTML;
     
-    button.classList.add('bg-[#238636]', 'border-[#238636]', 'text-white', 'hover:bg-[#2ea043]', 'hover:border-[#2ea043]');
+    button.classList.remove('bg-[#111111]', 'text-[#B4B4B4]', 'border-[#2A2A2A]');
+    button.classList.add('bg-[#4CAF50]', 'border-[#4CAF50]', 'text-white', 'shadow-lg');
+    button.style.boxShadow = '0 10px 15px -3px rgba(76, 175, 80, 0.3)';
     button.innerHTML = `
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="20 6 9 17 4 12"></polyline>
@@ -273,7 +351,9 @@ function showCopyFeedback(button) {
     `;
     
     setTimeout(() => {
-        button.classList.remove('bg-[#238636]', 'border-[#238636]', 'text-white', 'hover:bg-[#2ea043]', 'hover:border-[#2ea043]');
+        button.classList.add('bg-[#111111]', 'text-[#B4B4B4]', 'border-[#2A2A2A]');
+        button.classList.remove('bg-[#4CAF50]', 'border-[#4CAF50]', 'text-white', 'shadow-lg');
+        button.style.boxShadow = '';
         button.innerHTML = originalHTML;
     }, 2000);
 }
@@ -281,15 +361,22 @@ function showCopyFeedback(button) {
 // Show toast notification
 function showToast(message, type = 'success') {
     const toast = document.createElement('div');
-    const bgColor = type === 'success' ? 'bg-[#161b22] border-[#238636]' : 'bg-[#161b22] border-[#da3633]';
-    toast.className = `toast ${bgColor} border rounded-lg px-4 py-3 shadow-lg flex items-center gap-3 min-w-[250px]`;
+    const bgColor = type === 'success' ? 'bg-[#1A1A1A] border-[#4CAF50]' : 'bg-[#1A1A1A] border-[#EF5350]';
+    const iconColor = type === 'success' ? 'text-[#4CAF50]' : 'text-[#EF5350]';
+    toast.className = `toast ${bgColor} border-2 rounded-xl px-5 py-4 shadow-2xl flex items-center gap-3 min-w-[280px] backdrop-blur-lg`;
+    
+    if (type === 'success') {
+        toast.style.boxShadow = '0 25px 50px -12px rgba(76, 175, 80, 0.2)';
+    } else {
+        toast.style.boxShadow = '0 25px 50px -12px rgba(239, 83, 80, 0.2)';
+    }
     
     const icon = type === 'success' ? `
-        <svg class="w-5 h-5 text-[#238636] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg class="w-5 h-5 ${iconColor} flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
     ` : `
-        <svg class="w-5 h-5 text-[#da3633] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg class="w-5 h-5 ${iconColor} flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="8" x2="12" y2="12"></line>
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -298,19 +385,19 @@ function showToast(message, type = 'success') {
     
     toast.innerHTML = `
         ${icon}
-        <span class="text-[#e6edf3] text-sm">${message}</span>
+        <span class="text-[#F5F5F0] text-sm font-medium">${message}</span>
     `;
     
     toastContainer.appendChild(toast);
     
     // Remove toast after animation
     setTimeout(() => {
-        toast.style.animation = 'slideIn 0.3s ease reverse';
+        toast.style.animation = 'slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) reverse';
         setTimeout(() => {
             if (toast.parentNode) {
                 toast.parentNode.removeChild(toast);
             }
-        }, 300);
+        }, 400);
     }, 3000);
 }
 
