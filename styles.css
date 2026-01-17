@@ -1,0 +1,133 @@
+/* Custom styles for markdown preview and animations */
+@layer utilities {
+    .category-btn {
+        @apply px-4 py-2 rounded-md text-sm font-medium transition-all bg-[#161b22] text-[#8b949e] border border-[#30363d] hover:bg-[#21262d] hover:text-[#e6edf3] hover:border-[#30363d];
+    }
+    
+    .category-btn.active {
+        @apply bg-[#1f6feb] text-white border-[#1f6feb] hover:bg-[#388bfd] hover:border-[#388bfd];
+    }
+}
+
+/* Markdown preview styling */
+.preview-content {
+    @apply text-[#e6edf3] leading-relaxed;
+}
+
+.preview-content h1,
+.preview-content h2,
+.preview-content h3,
+.preview-content h4,
+.preview-content h5,
+.preview-content h6 {
+    @apply text-[#f0f6fc] font-semibold mt-6 mb-3;
+}
+
+.preview-content h1 {
+    @apply text-3xl border-b border-[#30363d] pb-3;
+}
+
+.preview-content h2 {
+    @apply text-2xl border-b border-[#30363d] pb-2;
+}
+
+.preview-content h3 {
+    @apply text-xl;
+}
+
+.preview-content h4 {
+    @apply text-lg;
+}
+
+.preview-content p {
+    @apply mb-4;
+}
+
+.preview-content code {
+    @apply bg-[#161b22] px-1.5 py-0.5 rounded text-[#79c0ff] text-sm font-mono;
+}
+
+.preview-content pre {
+    @apply bg-[#161b22] border border-[#30363d] rounded-lg p-4 overflow-x-auto mb-4;
+}
+
+.preview-content pre code {
+    @apply bg-transparent p-0 text-[#e6edf3];
+}
+
+.preview-content blockquote {
+    @apply border-l-4 border-[#1f6feb] pl-4 ml-0 text-[#8b949e] italic my-4;
+}
+
+.preview-content table {
+    @apply border-collapse w-full mb-4;
+}
+
+.preview-content table th,
+.preview-content table td {
+    @apply border border-[#30363d] px-3 py-2 text-left;
+}
+
+.preview-content table th {
+    @apply bg-[#161b22] font-semibold;
+}
+
+.preview-content ul,
+.preview-content ol {
+    @apply ml-6 mb-4;
+}
+
+.preview-content li {
+    @apply mb-1;
+}
+
+.preview-content a {
+    @apply text-[#58a6ff] no-underline hover:underline;
+}
+
+.preview-content img {
+    @apply max-w-full h-auto rounded-lg;
+}
+
+.preview-content hr {
+    @apply border-0 border-t border-[#30363d] my-6;
+}
+
+.preview-content del {
+    @apply line-through text-[#6e7681];
+}
+
+/* Toast animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.toast {
+    animation: slideIn 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #010409;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #21262d;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #30363d;
+}

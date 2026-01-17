@@ -1,0 +1,346 @@
+{
+  "categories": [
+    {
+      "id": "tables",
+      "name": "Tables",
+      "snippets": [
+        {
+          "title": "Basic Table",
+          "description": "Create a simple table with headers and rows",
+          "markdown": "| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1   | Cell 2   | Cell 3   |\n| Cell 4   | Cell 5   | Cell 6   |",
+          "priority": "high"
+        },
+        {
+          "title": "Table with Alignment",
+          "description": "Align columns left, center, or right",
+          "markdown": "| Left | Center | Right |\n|:-----|:------:|------:|\n| L1   |   C1   |    R1 |\n| L2   |   C2   |    R2 |",
+          "priority": "high"
+        },
+        {
+          "title": "Table with Long Content",
+          "description": "Table with multi-line cells",
+          "markdown": "| Column 1 | Column 2 |\n|----------|----------|\n| Line 1   | Data 1   |\n| Line 2   | Data 2   |",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "code_blocks",
+      "name": "Code Blocks",
+      "snippets": [
+        {
+          "title": "Inline Code",
+          "description": "Use backticks for inline code",
+          "markdown": "Use `code` in your text",
+          "priority": "high"
+        },
+        {
+          "title": "Code Block",
+          "description": "Fenced code block with triple backticks",
+          "markdown": "```\nfunction example() {\n  return 'Hello World';\n}\n```",
+          "priority": "high"
+        },
+        {
+          "title": "Syntax Highlighted Code",
+          "description": "Code block with language specification",
+          "markdown": "```javascript\nconst greeting = 'Hello';\nconsole.log(greeting);\n```",
+          "priority": "high"
+        },
+        {
+          "title": "Python Code Block",
+          "description": "Python syntax highlighting",
+          "markdown": "```python\ndef hello():\n    print('Hello, World!')\n```",
+          "priority": "medium"
+        },
+        {
+          "title": "Bash Code Block",
+          "description": "Shell/bash syntax highlighting",
+          "markdown": "```bash\n#!/bin/bash\necho 'Hello World'\n```",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "links_images",
+      "name": "Links & Images",
+      "snippets": [
+        {
+          "title": "Basic Link",
+          "description": "Create a simple hyperlink",
+          "markdown": "[Link Text](https://example.com)",
+          "priority": "high"
+        },
+        {
+          "title": "Link with Title",
+          "description": "Link with hover tooltip",
+          "markdown": "[Link Text](https://example.com \"Hover Title\")",
+          "priority": "medium"
+        },
+        {
+          "title": "Reference Link",
+          "description": "Link using reference syntax",
+          "markdown": "[Link Text][reference]\n\n[reference]: https://example.com",
+          "priority": "medium"
+        },
+        {
+          "title": "Image",
+          "description": "Embed an image",
+          "markdown": "![Alt Text](https://example.com/image.jpg)",
+          "priority": "high"
+        },
+        {
+          "title": "Image with Link",
+          "description": "Clickable image",
+          "markdown": "[![Alt Text](https://example.com/image.jpg)](https://example.com)",
+          "priority": "medium"
+        },
+        {
+          "title": "Image with Title",
+          "description": "Image with hover tooltip",
+          "markdown": "![Alt Text](https://example.com/image.jpg \"Image Title\")",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "lists",
+      "name": "Lists",
+      "snippets": [
+        {
+          "title": "Unordered List",
+          "description": "Bullet point list",
+          "markdown": "- Item 1\n- Item 2\n- Item 3",
+          "priority": "high"
+        },
+        {
+          "title": "Ordered List",
+          "description": "Numbered list",
+          "markdown": "1. First item\n2. Second item\n3. Third item",
+          "priority": "high"
+        },
+        {
+          "title": "Nested List",
+          "description": "List within a list",
+          "markdown": "- Item 1\n  - Subitem 1.1\n  - Subitem 1.2\n- Item 2\n  - Subitem 2.1",
+          "priority": "high"
+        },
+        {
+          "title": "Mixed List",
+          "description": "Combining ordered and unordered",
+          "markdown": "1. First\n   - Sub bullet\n   - Another sub\n2. Second",
+          "priority": "medium"
+        },
+        {
+          "title": "Task List",
+          "description": "Checkbox list",
+          "markdown": "- [ ] Uncompleted task\n- [x] Completed task\n- [ ] Another task",
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "id": "formatting",
+      "name": "Text Formatting",
+      "snippets": [
+        {
+          "title": "Bold Text",
+          "description": "Make text bold",
+          "markdown": "**bold text** or __bold text__",
+          "priority": "high"
+        },
+        {
+          "title": "Italic Text",
+          "description": "Make text italic",
+          "markdown": "*italic text* or _italic text_",
+          "priority": "high"
+        },
+        {
+          "title": "Bold and Italic",
+          "description": "Combine bold and italic",
+          "markdown": "***bold italic*** or ___bold italic___",
+          "priority": "medium"
+        },
+        {
+          "title": "Strikethrough",
+          "description": "Cross out text",
+          "markdown": "~~strikethrough text~~",
+          "priority": "high"
+        },
+        {
+          "title": "Highlight",
+          "description": "Highlight text (some markdown parsers)",
+          "markdown": "==highlighted text==",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "headers",
+      "name": "Headers",
+      "snippets": [
+        {
+          "title": "H1 Header",
+          "description": "Largest header",
+          "markdown": "# Header 1",
+          "priority": "high"
+        },
+        {
+          "title": "H2 Header",
+          "description": "Second level header",
+          "markdown": "## Header 2",
+          "priority": "high"
+        },
+        {
+          "title": "H3 Header",
+          "description": "Third level header",
+          "markdown": "### Header 3",
+          "priority": "high"
+        },
+        {
+          "title": "H4-H6 Headers",
+          "description": "Smaller headers",
+          "markdown": "#### Header 4\n##### Header 5\n###### Header 6",
+          "priority": "medium"
+        },
+        {
+          "title": "Alternative H1/H2",
+          "description": "Underline syntax for headers",
+          "markdown": "Header 1\n========\n\nHeader 2\n--------",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "blockquotes",
+      "name": "Blockquotes",
+      "snippets": [
+        {
+          "title": "Basic Blockquote",
+          "description": "Quote text",
+          "markdown": "> This is a blockquote",
+          "priority": "high"
+        },
+        {
+          "title": "Multi-line Blockquote",
+          "description": "Quote spanning multiple lines",
+          "markdown": "> This is a blockquote\n> that spans multiple lines\n> for better readability",
+          "priority": "medium"
+        },
+        {
+          "title": "Nested Blockquote",
+          "description": "Quote within a quote",
+          "markdown": "> Outer quote\n> > Inner quote",
+          "priority": "low"
+        },
+        {
+          "title": "Blockquote with Other Elements",
+          "description": "Combine with other markdown",
+          "markdown": "> **Bold text** in quote\n> - List item\n> - Another item",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "horizontal_rules",
+      "name": "Horizontal Rules",
+      "snippets": [
+        {
+          "title": "Horizontal Rule",
+          "description": "Create a divider line",
+          "markdown": "---",
+          "priority": "high"
+        },
+        {
+          "title": "Alternative Syntax",
+          "description": "Other ways to create horizontal rules",
+          "markdown": "***\n\n---\n\n___",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "escaping",
+      "name": "Escaping",
+      "snippets": [
+        {
+          "title": "Escape Special Characters",
+          "description": "Use backslash to escape markdown syntax",
+          "markdown": "\\*not italic\\*\n\\# not a header\n\\[not a link\\]",
+          "priority": "medium"
+        },
+        {
+          "title": "Escape Backslash",
+          "description": "Escape the escape character",
+          "markdown": "\\\\",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "footnotes",
+      "name": "Footnotes",
+      "snippets": [
+        {
+          "title": "Basic Footnote",
+          "description": "Add a footnote reference",
+          "markdown": "Text with footnote[^1]\n\n[^1]: Footnote content",
+          "priority": "medium"
+        },
+        {
+          "title": "Multiple Footnotes",
+          "description": "Multiple footnote references",
+          "markdown": "First[^1] and second[^2] footnotes\n\n[^1]: First note\n[^2]: Second note",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "math",
+      "name": "Math Formulas",
+      "snippets": [
+        {
+          "title": "Inline Math",
+          "description": "Math formula inline with text",
+          "markdown": "E = mc$^2$",
+          "priority": "medium"
+        },
+        {
+          "title": "Block Math",
+          "description": "Display math formula",
+          "markdown": "$$\n\\sum_{i=1}^{n} x_i\n$$",
+          "priority": "medium"
+        },
+        {
+          "title": "LaTeX Math",
+          "description": "Common LaTeX math syntax",
+          "markdown": "$$\n\\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}\n$$",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced",
+      "snippets": [
+        {
+          "title": "Definition List",
+          "description": "Term and definition pairs",
+          "markdown": "Term 1\n: Definition 1\n\nTerm 2\n: Definition 2",
+          "priority": "low"
+        },
+        {
+          "title": "Abbreviation",
+          "description": "Abbreviation with expansion",
+          "markdown": "*[HTML]: HyperText Markup Language\n\nHTML is great",
+          "priority": "low"
+        },
+        {
+          "title": "Table of Contents",
+          "description": "Auto-generated TOC (some parsers)",
+          "markdown": "[TOC]",
+          "priority": "low"
+        }
+      ]
+    }
+  ]
+}
