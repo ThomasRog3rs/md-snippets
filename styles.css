@@ -1,32 +1,41 @@
 /* Custom styles for markdown preview and animations */
-@layer utilities {
-    .category-btn {
-        @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300;
-        background-color: transparent;
-        color: #B4B4B4;
-        border: 1px solid #2A2A2A;
-    }
-    
-    .category-btn:hover {
-        background-color: #1A1A1A;
-        color: #E8E6E1;
-        border-color: #D4AF37;
-        transform: translateY(-1px);
-    }
-    
-    .category-btn.active {
-        background-color: transparent;
-        color: #D4AF37;
-        border-color: #D4AF37;
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
-        font-weight: 600;
-    }
-    
-    .category-btn.active:hover {
-        background-color: rgba(212, 175, 55, 0.1);
-        color: #C9A961;
-        border-color: #C9A961;
-    }
+
+/* Category button base styles (fallback) */
+.category-btn {
+    padding: 0.625rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color: transparent;
+    color: #B4B4B4;
+    border: 1px solid #2A2A2A;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.category-btn:hover {
+    background-color: #1A1A1A;
+    color: #E8E6E1;
+    border-color: #D4AF37;
+    transform: translateY(-2px);
+}
+
+.category-btn.active {
+    background-color: #D4AF37 !important;
+    color: #0A0A0A !important;
+    border-color: #D4AF37 !important;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3) !important;
+    font-weight: 600 !important;
+    transform: scale(1.05) !important;
+}
+
+.category-btn.active:hover {
+    background-color: #C9A961 !important;
+    color: #0A0A0A !important;
+    border-color: #C9A961 !important;
+    box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4) !important;
+    transform: scale(1.08) !important;
 }
 
 /* Markdown preview styling */

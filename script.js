@@ -102,7 +102,7 @@ function renderCategoryFilters(categories) {
     const allBtn = document.querySelector('[data-category="all"]');
     if (!allBtn) {
         const btn = document.createElement('button');
-        btn.className = 'category-btn active';
+        btn.className = 'category-btn active px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border';
         btn.setAttribute('data-category', 'all');
         btn.setAttribute('role', 'tab');
         btn.setAttribute('aria-selected', 'true');
@@ -110,14 +110,15 @@ function renderCategoryFilters(categories) {
         btn.addEventListener('click', () => setCategory('all'));
         categoryFilters.appendChild(btn);
     } else {
-        // If "All" button already exists in HTML, add the event listener
+        // If "All" button already exists in HTML, add the event listener and ensure proper classes
+        allBtn.className = 'category-btn active px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border';
         allBtn.addEventListener('click', () => setCategory('all'));
     }
     
     // Add category buttons
     categories.forEach(category => {
         const btn = document.createElement('button');
-        btn.className = 'category-btn';
+        btn.className = 'category-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border bg-transparent text-[#B4B4B4] border-[#2A2A2A] hover:bg-[#1A1A1A] hover:text-[#E8E6E1] hover:border-[#D4AF37] hover:-translate-y-0.5';
         btn.setAttribute('data-category', category.id);
         btn.setAttribute('role', 'tab');
         btn.setAttribute('aria-selected', 'false');
@@ -131,10 +132,20 @@ function renderCategoryFilters(categories) {
 function setCategory(categoryId) {
     currentCategory = categoryId;
     
-    // Update active state
+    // Update active state with proper styling
     document.querySelectorAll('.category-btn').forEach(btn => {
         const isActive = btn.getAttribute('data-category') === categoryId;
-        btn.classList.toggle('active', isActive);
+        
+        if (isActive) {
+            // Active state styling
+            btn.className = 'category-btn active px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border bg-[#D4AF37] text-[#0A0A0A] border-[#D4AF37] shadow-lg hover:bg-[#C9A961] hover:border-[#C9A961] scale-105';
+            btn.style.boxShadow = '0 4px 12px rgba(212, 175, 55, 0.3)';
+        } else {
+            // Inactive state styling
+            btn.className = 'category-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border bg-transparent text-[#B4B4B4] border-[#2A2A2A] hover:bg-[#1A1A1A] hover:text-[#E8E6E1] hover:border-[#D4AF37] hover:-translate-y-0.5';
+            btn.style.boxShadow = '';
+        }
+        
         btn.setAttribute('aria-selected', isActive);
     });
     
