@@ -3,6 +3,7 @@ let allSnippets = [];
 let filteredSnippets = [];
 let currentCategory = 'all';
 let searchQuery = '';
+let categoryOrder = []; // Track the original order of categories
 
 // DOM elements
 const snippetsGrid = document.getElementById('snippetsGrid');
@@ -67,6 +68,9 @@ async function loadSnippets() {
     try {
         const response = await fetch('snippets.json');
         const data = await response.json();
+        
+        // Store category order
+        categoryOrder = data.categories.map(cat => cat.id);
         
         // Flatten snippets with category info
         allSnippets = [];
@@ -170,7 +174,7 @@ function filterSnippets() {
     renderSnippets();
 }
 
-// Render snippet cards
+// Render snippet cards grouped by category
 function renderSnippets() {
     snippetsGrid.innerHTML = '';
     
@@ -183,10 +187,66 @@ function renderSnippets() {
     emptyState.classList.add('hidden');
     emptyState.classList.remove('flex');
     
+    // Group snippets by category
+    const groupedSnippets = {};
     filteredSnippets.forEach(snippet => {
-        const card = createSnippetCard(snippet);
-        snippetsGrid.appendChild(card);
+        if (!groupedSnippets[snippet.categoryId]) {
+            groupedSnippets[snippet.categoryId] = {
+                name: snippet.categoryName,
+                snippets: []
+            };
+        }
+        groupedSnippets[snippet.categoryId].snippets.push(snippet);
     });
+    
+    // Sort categories by original order from JSON
+    const sortedCategories = Object.entries(groupedSnippets).sort((a, b) => {
+        const indexA = categoryOrder.indexOf(a[0]);
+        const indexB = categoryOrder.indexOf(b[0]);
+        return indexA - indexB;
+    });
+    
+    // Render each category section
+    sortedCategories.forEach(([categoryId, categoryData], index) => {
+        // Create category header
+        const categorySection = document.createElement('div');
+        categorySection.className = 'category-section';
+        categorySection.style.animationDelay = `${index * 0.1}s`;
+        
+        const categoryHeader = document.createElement('div');
+        categoryHeader.className = 'category-header';
+        
+        const categoryTitle = document.createElement('h2');
+        categoryTitle.className = 'category-title';
+        categoryTitle.textContent = categoryData.name;
+        
+        const categoryCount = document.createElement('span');
+        categoryCount.className = 'category-count';
+        categoryCount.textContent = `${categoryData.snippets.length} snippet${categoryData.snippets.length !== 1 ? 's' : ''}`;
+        
+        const categoryDivider = document.createElement('div');
+        categoryDivider.className = 'category-divider';
+        
+        categoryHeader.appendChild(categoryTitle);
+        categoryHeader.appendChild(categoryCount);
+        categorySection.appendChild(categoryHeader);
+        categorySection.appendChild(categoryDivider);
+        
+        // Create grid for this category's snippets
+        const categoryGrid = document.createElement('div');
+        categoryGrid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16';
+        
+        categoryData.snippets.forEach(snippet => {
+            const card = createSnippetCard(snippet);
+            categoryGrid.appendChild(card);
+        });
+        
+        categorySection.appendChild(categoryGrid);
+        snippetsGrid.appendChild(categorySection);
+    });
+    
+    // Update grid layout to be vertical sections instead of grid
+    snippetsGrid.className = 'space-y-8';
 }
 
 // Create a snippet card element
@@ -215,10 +275,6 @@ function createSnippetCard(snippet) {
     const headerRight = document.createElement('div');
     headerRight.className = 'flex items-center gap-2 flex-shrink-0';
     
-    const badge = document.createElement('span');
-    badge.className = 'px-3 py-1.5 rounded-lg text-xs font-medium bg-[#111111] text-[#B4B4B4] border border-[#1F1F1F]';
-    badge.textContent = snippet.categoryName;
-    
     const copyBtn = document.createElement('button');
     copyBtn.className = 'copy-btn px-4 py-2 rounded-lg text-sm font-medium bg-[#111111] text-[#B4B4B4] border border-[#2A2A2A] hover:bg-[#D4AF37] hover:text-[#111111] hover:border-[#D4AF37] transition-all duration-300 flex items-center gap-2 hover:shadow-lg hover:shadow-[#D4AF37]/20';
     copyBtn.setAttribute('aria-label', 'Copy to clipboard');
@@ -235,7 +291,6 @@ function createSnippetCard(snippet) {
         copyToClipboard(snippet.markdown, copyBtn);
     });
     
-    headerRight.appendChild(badge);
     headerRight.appendChild(copyBtn);
     
     header.appendChild(titleGroup);
